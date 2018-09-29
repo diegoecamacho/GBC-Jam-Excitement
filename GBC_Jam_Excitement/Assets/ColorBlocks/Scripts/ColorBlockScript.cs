@@ -57,12 +57,23 @@ public class ColorBlockScript : MonoBehaviour {
 
     }
 
+    // Public function to call for throw
+    public void ThrowCube(Vector2 throwDir, float magnitude)
+    {
+        //ThrowMidPos = new Vector3(throwDir.x, throwDir.y, 0.0f) * magnitude;
+
+        if (ValidateThrowProperties())
+            isThrown = true;
+    }
+
     private void OnTriggerEnter(Collider collider)
     {
         // check if the cube has hit the platform
         if (collider.gameObject.tag.Equals("Platform"))
         {
-            isThrown = false;
+            //TODO: Maybe check if the platform you hit has been filled?
+            //Delete color block and create new one in Toolbar manager
+            //isThrown = false;
             // Filling platform color is done by platformScript
         }
     }

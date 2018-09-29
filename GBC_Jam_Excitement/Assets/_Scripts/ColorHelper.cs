@@ -34,7 +34,9 @@ namespace GBCJam
                 {
                     case EColor_Value.RED:
                         {
-                            if (Color2 == EColor_Value.RED) //red + red
+                            if (Color2 == EColor_Value.NONE)
+                                return Color1;
+                            else if (Color2 == EColor_Value.RED) //red + red
                                 return EColor_Value.RED;
                             else if (Color2 == EColor_Value.YELLOW) //red + yellow
                                 return EColor_Value.ORANGE;
@@ -45,7 +47,9 @@ namespace GBCJam
                         }
                     case EColor_Value.YELLOW:
                         {
-                            if (Color2 == EColor_Value.RED) // yellow + red
+                            if(Color2 == EColor_Value.NONE)
+                                return Color1;
+                            else if (Color2 == EColor_Value.RED) // yellow + red
                                 return EColor_Value.ORANGE;
                             else if (Color2 == EColor_Value.YELLOW) // yellow + yellow
                                 return EColor_Value.YELLOW;
@@ -57,7 +61,9 @@ namespace GBCJam
 
                     case EColor_Value.BLUE:
                         {
-                            if (Color2 == EColor_Value.RED) // blue + red
+                            if (Color2 == EColor_Value.NONE)
+                                return Color1;
+                            else if (Color2 == EColor_Value.RED) // blue + red
                                 return EColor_Value.PURPLE;
                             else if (Color2 == EColor_Value.YELLOW) // blue + yellow
                                 return EColor_Value.GREEN;
@@ -67,9 +73,17 @@ namespace GBCJam
                             break;
                         }
 
-                    case EColor_Value.NONE:
-                        Debug.LogError("Unknown color sent to AddColors");
-                        return EColor_Value.NONE;
+                    case EColor_Value.NONE: //if getting normal color
+                        {
+                            if (Color2 == EColor_Value.RED)
+                                return EColor_Value.RED;
+                            else if (Color2 == EColor_Value.YELLOW)
+                                return EColor_Value.YELLOW;
+                            else if (Color2 == EColor_Value.BLUE)
+                                return EColor_Value.BLUE;
+
+                            break;
+                        }
                 }
 
                 Debug.LogError("You are not supposed to reach here.");

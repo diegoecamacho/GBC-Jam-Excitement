@@ -11,13 +11,14 @@ public class PlatformScript : MonoBehaviour {
     Vector3 cameraWorldBounds;
 
     [Header("Color Properties")]
-    private EColor_Value assignedColor;
-    public EColor_Value AssignedColor
-    {
-        get { return AssignedColor; }
-        set { AssignedColor = value; }
-    }
+    private float addColorDelay = 1.0f;
+    private bool isColorMixable = true;
+    private EColor_Value currentColor = EColor_Value.NONE;
+    private EColor_Value assignedColor = EColor_Value.NONE;
     private Material OwnedMaterial;
+
+    //Coroutine lock 
+    bool hasCalledCoroutine = false;
 
     // Spawner Reference
     SpawnerController spawnerController;
@@ -25,6 +26,7 @@ public class PlatformScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         isRunning = true;
+        isColorMixable = true;
         OwnedMaterial = GetComponent<Renderer>().material;
 
         spawnerController = GameObject.Find("GameManager").GetComponent<SpawnerController>();
@@ -57,17 +59,39 @@ public class PlatformScript : MonoBehaviour {
         //if block enter
         if (other.tag.Equals("ColorBlock"))
         {
+            if (!isColorMixable) //ignore if already mixed
+                return;
+
             EColor_Value BlockColor = other.GetComponent<ColorBlockScript>().GetColorValue; //get the color of the block
             FillPlatform(BlockColor); //apply the color
+            StartCoroutine(StartDelayWindow()); //begin closing the window for a second color
         }
     }
 
     private void FillPlatform(EColor_Value fillColor)
     {
-        Color resultColor = ColorHelper.GetRealColor(fillColor); //convert enum to color
-        OwnedMaterial.SetColor("_Color", resultColor);
+        EColor_Value mixedColor = ColorHelper.AddColors(currentColor, fillColor); //mix the current color with the color received
+        currentColor = mixedColor; //set the new mixed color as current
+        Color resultColor = ColorHelper.GetRealColor(currentColor); //convert enum to color
+        OwnedMaterial.SetColor("_Color", resultColor); //apply to material
+    }
 
+    // creates a time gap in which the player can add another color to mix
+    // notifies the spawner on delay end
+    IEnumerator StartDelayWindow()
+    {
+        if (hasCalledCoroutine)
+            yield break;
+
+        hasCalledCoroutine = true;
+
+        yield return new WaitForSeconds(addColorDelay);
+        isColorMixable = false;
         //notify controller that you have been filled
         spawnerController.NotifyRemovePlatform();
+
+        yield break;
     }
+
+    
 }

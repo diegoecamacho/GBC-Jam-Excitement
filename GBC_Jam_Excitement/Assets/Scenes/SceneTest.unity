@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 40014256}
   - component: {fileID: 40014259}
   - component: {fileID: 40014258}
+  - component: {fileID: 40014260}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -184,9 +185,23 @@ MonoBehaviour:
   Color_R: {r: 1, g: 0.15294118, b: 0.17254902, a: 1}
   Color_Y: {r: 0.8745099, g: 0.9921569, b: 0.19607845, a: 1}
   Color_B: {r: 0.18823531, g: 0.62352943, b: 1, a: 1}
-  Color_O: {r: 0.8584906, g: 0.4778013, b: 0, a: 0}
-  Color_G: {r: 0, g: 0.5849056, b: 0.1749918, a: 0}
-  Color_P: {r: 0.647453, g: 0.0033819948, b: 0.7169812, a: 0}
+  Color_O: {r: 0.8584906, g: 0.4778013, b: 0, a: 1}
+  Color_G: {r: 0, g: 0.5849056, b: 0.1749918, a: 1}
+  Color_P: {r: 0.647453, g: 0.0033819948, b: 0.7169812, a: 1}
+--- !u!114 &40014260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 40014255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2af0e6e52e9d934cad48c47ffcc80a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &189851182
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,6 +554,10 @@ Prefab:
       propertyPath: ThrowAmplitudeObject
       value: 
       objectReference: {fileID: 189851185}
+    - target: {fileID: 1682904872731968, guid: 601d11c8b39715143bfb4b01b18139c1, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 601d11c8b39715143bfb4b01b18139c1, type: 2}
   m_IsPrefabAsset: 0
@@ -666,6 +685,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114795127910023858, guid: 223c988576a20ff48b96ba086d3f47b9,
+        type: 2}
+      propertyPath: ThrowAmplitudeObject
+      value: 
+      objectReference: {fileID: 189851185}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 223c988576a20ff48b96ba086d3f47b9, type: 2}
   m_IsPrefabAsset: 0
@@ -714,8 +738,13 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1696117674021210, guid: 5ae8a93bf8e4f1b419745bbc64c70930, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114521613387927310, guid: 5ae8a93bf8e4f1b419745bbc64c70930,
+        type: 2}
+      propertyPath: ThrowAmplitudeObject
+      value: 
+      objectReference: {fileID: 189851185}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ae8a93bf8e4f1b419745bbc64c70930, type: 2}
   m_IsPrefabAsset: 0
