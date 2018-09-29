@@ -5,9 +5,10 @@ using GBCJam.ColorValues;
 
 public class PlatformScript : MonoBehaviour {
     [Header("Movement Properties")]
-    private bool IsRunning;
-    private float MovementSpeed = 1.0f;
-    private float KillZoneLimitX = -6.0f; //TODO: Find a proper killzone point
+    private bool isRunning;
+    private float movementSpeed = 1.0f;
+    private float killZoneLimitX = -6.0f; //TODO: Find a proper killzone point
+    Vector3 cameraWorldBounds;
 
     [Header("Color Properties")]
     private EColor_Value assignedColor;
@@ -18,30 +19,42 @@ public class PlatformScript : MonoBehaviour {
     }
     private Material OwnedMaterial;
 
+    // Spawner Reference
+    SpawnerController spawnerController;
+
 	// Use this for initialization
 	void Start () {
-        IsRunning = true;
+        isRunning = true;
         OwnedMaterial = GetComponent<Renderer>().material;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+        spawnerController = GameObject.Find("GameManager").GetComponent<SpawnerController>();
+
+        //getting the camera world bound extent
+        double VerticalHightSeen = Camera.main.orthographicSize * 2.0;
+        double HorizontalHeightSeen = VerticalHightSeen * Screen.width / Screen.height;
+        cameraWorldBounds = Camera.main.transform.position;
+        cameraWorldBounds.x += (float)HorizontalHeightSeen; //TODO: Check if this is the actual valid world bound
+    }
+
+    // Update is called once per frame
+    void Update () {
 
         //Kill zone
-        if (transform.position.x <= KillZoneLimitX) {
-            IsRunning = false;
+        if (transform.position.x <= killZoneLimitX) {
+            isRunning = false;
             Destroy(this.gameObject, 0.3f);
         }
 
         //Move platform forward
-        if (IsRunning)
+        if (isRunning)
         {
-            transform.Translate(-1 * transform.right * MovementSpeed * Time.deltaTime, Space.World); //move left towards player
+            transform.Translate(-1 * transform.right * movementSpeed * Time.deltaTime, Space.World); //move left towards player
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        //if block enter
         if (other.tag.Equals("ColorBlock"))
         {
             EColor_Value BlockColor = other.GetComponent<ColorBlockScript>().GetColorValue; //get the color of the block
@@ -53,5 +66,8 @@ public class PlatformScript : MonoBehaviour {
     {
         Color resultColor = ColorHelper.GetRealColor(fillColor); //convert enum to color
         OwnedMaterial.SetColor("_Color", resultColor);
+
+        //notify controller that you have been filled
+        spawnerController.NotifyRemovePlatform();
     }
 }

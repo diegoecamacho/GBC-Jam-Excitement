@@ -27,12 +27,17 @@ public class ColorBlockScript : MonoBehaviour {
     [SerializeField]
     private Transform ThrowEndObject;
 
+    // SPAWNER REFERENCE
+    SpawnerController spawnerController;
+
     private void Start()
     {
         // set throw vectors
         ThrowStartPos = transform.position;
         ThrowMidPos = ThrowAmplitudeObject.position;
-        ThrowEndPos = ThrowEndObject.position;
+        //ThrowEndPos = ThrowEndObject.position;
+
+        spawnerController = GameObject.Find("GameManager").GetComponent<SpawnerController>();
 
     }
 
@@ -40,7 +45,8 @@ public class ColorBlockScript : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Space)) //HACK: To be updated with touch event
         {
-            isThrown = true;
+            if (ValidateThrowProperties())
+                isThrown = true;
         }
 
         if (isThrown)
@@ -57,8 +63,19 @@ public class ColorBlockScript : MonoBehaviour {
         if (collider.gameObject.tag.Equals("Platform"))
         {
             isThrown = false;
-            //TODO: Add color to platform
+            // Filling platform color is done by platformScript
         }
+    }
+
+    // Checks if a throw is possible and sets up various properties for the throw
+    bool ValidateThrowProperties()
+    {
+        ThrowEndObject = spawnerController.GetThrowablePosition();
+
+        if (ThrowEndObject == null)
+            return false;
+
+        return true;
     }
 
     // Moves the cube towards the end position on a curve determined by an midway height
