@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114795127910023858}
   m_Layer: 0
   m_Name: ColorBlock_B
-  m_TagString: Untagged
+  m_TagString: ColorBlock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

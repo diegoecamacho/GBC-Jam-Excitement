@@ -8,6 +8,7 @@ public class ColorBlockScript : MonoBehaviour {
     [Header("Block Properties")]
     [SerializeField]
     private EColor_Value ColorValue = EColor_Value.NONE;
+    public EColor_Value GetColorValue { get { return ColorValue; } }
 
     [Header("Throw Properties")]
     private bool isThrown = false;
@@ -80,5 +81,4 @@ public class ColorBlockScript : MonoBehaviour {
     {
         transform.Rotate(Vector3.Cross(transform.up, transform.right), AnimRotationSpeed); //TODO: Replace the vector with the swipe direction
     }
-
 }

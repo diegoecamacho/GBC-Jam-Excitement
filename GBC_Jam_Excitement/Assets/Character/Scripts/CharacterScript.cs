@@ -4,13 +4,24 @@ using UnityEngine;
 
 public class CharacterScript : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag.Equals("Platform"))
+        {
+            if (CanStepOnPlatform(other.gameObject))
+            {
+                //TODO: Lose screen
+            }
+        }
+    }
+
+    bool CanStepOnPlatform(GameObject Platform)
+    {
+        //if (Platform.GetComponent<PlatformScript>().isFilled)
+        //{
+        //    return true;
+        //}
+        return false;
+    }
+
 }

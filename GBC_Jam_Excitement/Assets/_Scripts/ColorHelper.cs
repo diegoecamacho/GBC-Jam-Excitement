@@ -1,15 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GBCJam.ColorValues;
 
 namespace GBCJam
 {
     namespace ColorValues
     {
-        public class ColorHelper
+        public class ColorHelper : MonoBehaviour
         {
-            /// Adds two colors and returns the combined color
+            private static Color Color_R;
+            private static Color Color_Y;
+            private static Color Color_B;
+            private static Color Color_O;
+            private static Color Color_G;
+            private static Color Color_P;
+
+            private void Start()
+            {
+                ColorEnumsToValues enumToColorRef = GameObject.Find("GameManager").GetComponent<ColorEnumsToValues>();
+                Color_R = enumToColorRef.Color_R;
+                Color_Y = enumToColorRef.Color_Y;
+                Color_B = enumToColorRef.Color_B;
+                Color_O = enumToColorRef.Color_O;
+                Color_G = enumToColorRef.Color_G;
+                Color_P = enumToColorRef.Color_P;
+
+            }
+
+            // Adds two colors and returns the combined color
             public static EColor_Value AddColors(EColor_Value Color1, EColor_Value Color2)
             {
                 switch (Color1) //check all possible combinations with the first color
@@ -58,6 +76,32 @@ namespace GBCJam
                 return EColor_Value.NONE;
             }
             
+            // Converts enum to real world color
+            public static Color GetRealColor(EColor_Value RequestedColor)
+            {
+                switch(RequestedColor)
+                {
+                    case EColor_Value.RED:
+                        return Color_R;
+
+                    case EColor_Value.YELLOW:
+                        return Color_Y;
+
+                    case EColor_Value.BLUE:
+                        return Color_B;
+
+                    case EColor_Value.ORANGE:
+                        return Color_O;
+
+                    case EColor_Value.GREEN:
+                        return Color_G;
+
+                    case EColor_Value.PURPLE:
+                        return Color_P;
+                }
+                Debug.LogError("You should not reach here");
+                return new Color();
+            }
         }
 
     }
