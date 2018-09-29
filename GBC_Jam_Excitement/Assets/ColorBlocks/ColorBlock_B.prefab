@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33254139870619034}
   - component: {fileID: 23775243638866790}
   - component: {fileID: 65505990973236464}
+  - component: {fileID: 114795127910023858}
   m_Layer: 0
   m_Name: ColorBlock_B
   m_TagString: Untagged
@@ -91,8 +92,26 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1773960766807008}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114795127910023858
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1773960766807008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5121570639000bd4eb23994529e7ba8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ColorValue: 3
+  AnimRotationSpeed: 1
+  ThrowSpeed: 1
+  ThrowEndPos: {x: 0, y: 0, z: 0}
+  ThrowMidPos: {x: 0, y: 0, z: 0}
+  ThrowAmplitudeObject: {fileID: 0}
+  ThrowEndObject: {fileID: 0}
